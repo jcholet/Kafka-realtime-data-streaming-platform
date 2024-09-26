@@ -1,0 +1,93 @@
+services:
+  kafka1:
+    image: confluentinc/cp-kafka
+    container_name: kafka1
+    hostname: kafka1
+    ports:
+      - "9092:9092"
+    volumes:
+      - ./kafka_ssl_certs/kafka1_certs:/etc/kafka/secrets
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:SSL,INTERNAL:SSL,EXTERNAL:SSL'
+      KAFKA_LISTENERS: 'INTERNAL://kafka1:29092,CONTROLLER://kafka1:29093,EXTERNAL://0.0.0.0:9092'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka1:29092,EXTERNAL://localhost:9092'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:29093,2@kafka2:29093,3@kafka3:29093'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: 'ciWo7IWazngRchmPES6q5A=='
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_SSL_KEYSTORE_LOCATION: '/etc/kafka/secrets/kafka1.keystore.jks'
+      KAFKA_SSL_KEYSTORE_PASSWORD: 'password'
+      KAFKA_SSL_KEY_PASSWORD: 'password'
+      KAFKA_SSL_TRUSTSTORE_LOCATION: '/etc/kafka/secrets/kafka1.truststore.jks'
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: 'password'
+      KAFKA_SSL_CLIENT_AUTH: 'required'
+
+  kafka2:
+    image: confluentinc/cp-kafka
+    container_name: kafka2
+    hostname: kafka2
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./kafka_ssl_certs/kafka2_certs:/etc/kafka/secrets
+    environment:
+      KAFKA_NODE_ID: 2
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:SSL,INTERNAL:SSL,EXTERNAL:SSL'
+      KAFKA_LISTENERS: 'INTERNAL://kafka2:29092,CONTROLLER://kafka2:29093,EXTERNAL://0.0.0.0:9093'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka2:29092,EXTERNAL://localhost:9093'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:29093,2@kafka2:29093,3@kafka3:29093'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: 'ciWo7IWazngRchmPES6q5A=='
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_SSL_KEYSTORE_LOCATION: '/etc/kafka/secrets/kafka2.keystore.jks'
+      KAFKA_SSL_KEYSTORE_PASSWORD: 'password'
+      KAFKA_SSL_KEY_PASSWORD: 'password'
+      KAFKA_SSL_TRUSTSTORE_LOCATION: '/etc/kafka/secrets/kafka2.truststore.jks'
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: 'password'
+      KAFKA_SSL_CLIENT_AUTH: 'required'
+  
+  kafka3:
+    image: confluentinc/cp-kafka
+    container_name: kafka3
+    hostname: kafka3
+    ports:
+      - "9094:9094"
+    volumes:
+      - ./kafka_ssl_certs/kafka3_certs:/etc/kafka/secrets
+    environment:
+      KAFKA_NODE_ID: 3
+      KAFKA_CONTROLLER_LISTENER_NAMES: 'CONTROLLER'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:SSL,INTERNAL:SSL,EXTERNAL:SSL'
+      KAFKA_LISTENERS: 'INTERNAL://kafka3:29092,CONTROLLER://kafka3:29093,EXTERNAL://0.0.0.0:9094'
+      KAFKA_ADVERTISED_LISTENERS: 'INTERNAL://kafka3:29092,EXTERNAL://localhost:9094'
+      KAFKA_INTER_BROKER_LISTENER_NAME: 'INTERNAL'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@kafka1:29093,2@kafka2:29093,3@kafka3:29093'
+      KAFKA_PROCESS_ROLES: 'broker,controller'
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 3
+      CLUSTER_ID: 'ciWo7IWazngRchmPES6q5A=='
+      KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
+      KAFKA_SSL_KEYSTORE_LOCATION: '/etc/kafka/secrets/kafka3.keystore.jks'
+      KAFKA_SSL_KEYSTORE_PASSWORD: 'password'
+      KAFKA_SSL_KEY_PASSWORD: 'password'
+      KAFKA_SSL_TRUSTSTORE_LOCATION: '/etc/kafka/secrets/kafka3.truststore.jks'
+      KAFKA_SSL_TRUSTSTORE_PASSWORD: 'password'
+      KAFKA_SSL_CLIENT_AUTH: 'required'
+
+networks:
+  default:
+    name: my-network
+    external: true
+      
