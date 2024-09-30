@@ -1,0 +1,64 @@
+/* Styles de base pour left-part */
+.left-part {
+    padding: 20px;
+    padding-top: 12vh;
+    color: white;
+    position: relative;
+}
+  
+/* Configuration de la grille */
+.sun-grid {
+    display: grid;
+    grid-template-columns: 1fr auto; /* Deux colonnes de taille égale */
+    gap: 20px; /* Espacement entre les éléments */
+    row-gap: 5px;
+    align-items: center; /* Centre verticalement les éléments */
+    color: white; /* Couleur du texte */
+}
+  
+/* Styles pour chaque élément de la grille */
+.location,
+.sunrise,
+.date,
+.sunset {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espacement entre l'icône et le texte */
+}
+
+.date {
+    font-weight: 100;
+    font-size: small;
+}
+
+.temperature {
+    font-size: 5em; /* Taille de la police */
+    font-weight: 700; /* Épaisseur de la police */
+    display: flex;
+    align-items: center; /* Centrer verticalement le contenu de .temperature */
+    justify-content: center; /* Centrer horizontalement le contenu de .temperature */
+    width: 100%; /* Assurer que la div occupe toute la largeur de son parent */
+    margin-top: 70px; /* Ajouter un espacement supérieur si nécessaire */
+    margin-bottom: 20px; /* Ajouter un espacement inférieur si nécessaire */;
+}
+
+.weather {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    display: flex;
+    align-items: center; /* Centrer verticalement le contenu de .temperature */
+    justify-content: center; /* Centrer horizontalement le contenu de .temperature */
+    width: 100%; /* Assurer que la div occupe toute la largeur de son parent */
+}
+
+.background-image {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: auto; /* Ajustez la largeur selon vos besoins */
+    height: 65vh; /* Ajustez la hauteur selon vos besoins */
+    max-height: 100%; /* Assurez-vous que l'image ne dépasse pas la hauteur du parent */
+    z-index: -1; /* Placez l'image en arrière-plan */
+}

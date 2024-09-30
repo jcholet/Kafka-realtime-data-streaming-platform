@@ -1,0 +1,15 @@
+.right-part {
+    background-color: #E3F1FF;
+    border-radius: 2.5em 0 0 2.5em;
+    padding: 30px;
+}
+
+.welcome-title {
+    font-size: 1.1em;
+    font-weight: 500;
+}
+
+.welcome-sub {
+    font-size: .9em;
+    font-weight: 100;
+}
