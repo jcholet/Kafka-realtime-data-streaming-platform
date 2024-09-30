@@ -31,7 +31,7 @@
 .weather-details-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 5%;
 }
 
 .weather-card {
@@ -58,17 +58,13 @@
 .weather-card-scale {
     font-size: 12px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
 }
+
 
 .status {
     font-size: 17px;
     font-weight: normal;
-}
-
-.precipitation, .uv-index, .feels-like, .chance-of-rain {
-    display: flex;
-    justify-content: space-around;
 }
 
 .weather-card-icon {

@@ -23,9 +23,9 @@ function RightPart() {
                     <div className="weather-card-icon"></div>
                     <div className="weather-card-value">82% <span className="status bad">bad</span></div>
                     <div className="weather-card-scale">
-                        <div className="good">good</div>
-                        <div className="normal">normal</div>
-                        <div className="bad">bad</div>
+                        <div>good</div>
+                        <div>normal</div>
+                        <div>bad</div>
                     </div>
                     <ProgressBar value="82" max="100"></ProgressBar>
                 </div>
@@ -45,8 +45,17 @@ function RightPart() {
                     <div className="weather-card-title">Precipitation</div>
                     <div className="weather-card-icon"></div>
                     <div className="weather-card-value">1.4 cm</div>
-                    <div className="weather-card-scale precipitation">
-                        <div className="precipitation-amount">0 10 20 30 40 50 60 70 80 90</div>
+                    <div className="weather-card-scale">
+                        <div>0</div>
+                        <div>10</div>
+                        <div>20</div>
+                        <div>30</div>
+                        <div>40</div>
+                        <div>50</div>
+                        <div>60</div>
+                        <div>70</div>
+                        <div>80</div>
+                        <div>90</div>
                     </div>
                     <ProgressBar value="14" max="90"></ProgressBar>
                 </div>
@@ -56,8 +65,12 @@ function RightPart() {
                     <div className="weather-card-title">UV Index</div>
                     <div className="weather-card-icon"></div>
                     <div className="weather-card-value">4 <span className="status medium">medium</span></div>
-                    <div className="weather-card-scale uv-index">
-                        <div className="uv-level">0-2 3-5 6-7 8-10 11+</div>
+                    <div className="weather-card-scale">
+                        <div>0-2</div>
+                        <div>3-5</div>
+                        <div>6-7</div>
+                        <div>8-10</div>
+                        <div>11+</div>
                     </div>
                     <ProgressBar value="4" max="11"></ProgressBar>
                 </div>
@@ -67,8 +80,10 @@ function RightPart() {
                     <div className="weather-card-title">Feels Like</div>
                     <div className="weather-card-icon"></div>
                     <div className="weather-card-value">30°</div>
-                    <div className="weather-card-scale feels-like">
-                        <div className="feels-like-range">0° 25° 50°</div>
+                    <div className="weather-card-scale">
+                        <div>0°</div>
+                        <div>25°</div>
+                        <div>50°</div>
                     </div>
                     <ProgressBar value="30" max="50"></ProgressBar>
                 </div>
@@ -79,7 +94,11 @@ function RightPart() {
                     <div className="weather-card-icon"></div>
                     <div className="weather-card-value">42%</div>
                     <div className="weather-card-scale chance-of-rain">
-                        <div className="rain-chances">0% 25% 50% 75% 100%</div>
+                        <div>0%</div>
+                        <div>25%</div>
+                        <div>50%</div>
+                        <div>75%</div>
+                        <div>100%</div>
                     </div>
                     <ProgressBar value="42" max="100"></ProgressBar>
                 </div>
