@@ -13,3 +13,71 @@
     font-size: .9em;
     font-weight: 100;
 }
+
+.graph-bg {
+    background-color: #fff;
+    border-radius: 1.5em;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.weather-details-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.weather-details-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.weather-card {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 1.5em;
+    text-align: center;
+    position: relative;
+}
+
+.weather-card-title {
+    font-size: 16px;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.weather-card-value {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.weather-card-scale {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.status {
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.precipitation, .uv-index, .feels-like, .chance-of-rain {
+    display: flex;
+    justify-content: space-around;
+}
+
+.weather-card-icon {
+    background-color: #5C9BE5;
+    padding: 10px;
+    border-radius: 25%;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 10px;
+    height: 10px;
+}
