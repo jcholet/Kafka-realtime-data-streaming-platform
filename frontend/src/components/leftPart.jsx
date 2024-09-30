@@ -4,6 +4,7 @@ import { LuSunset } from "react-icons/lu";
 import { GoSun } from "react-icons/go";
 import BuildingSun from '../assets/building_sun.png';
 import './leftPart.css';
+import BuildingNight from '../assets/building_night.png';
 
 function LeftPart() {
   return (
@@ -35,7 +36,7 @@ function LeftPart() {
         <GoSun color="white" />
         <div>Ensoleillé</div>
       </div>
-      <img src={BuildingSun} alt="Building and sun" className="background-image" /> 
+      <img src={BuildingNight} alt="Building and sun" className="background-image" /> 
     </div>
   );
 }
