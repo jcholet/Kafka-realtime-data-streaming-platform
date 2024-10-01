@@ -44,13 +44,28 @@
 }
 
 .weather {
+    position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 10px;
-    display: flex;
-    align-items: center; /* Centrer verticalement le contenu de .temperature */
-    justify-content: center; /* Centrer horizontalement le contenu de .temperature */
-    width: 100%; /* Assurer que la div occupe toute la largeur de son parent */
+    z-index: 1;
+    padding: 7px; /* Ajoutez du padding pour assurer que le blur ne coupe pas le contenu */
+    margin: 0 auto; /* Centrer horizontalement la div weather */
+    width: fit-content; /* La largeur s'adapte au contenu */
+}
+
+/* Div de flou */
+.weather-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2); /* Fond semi-transparent */
+    backdrop-filter: blur(10px); /* Effet de flou */
+    z-index: -1; /* Placez le flou derrière le contenu de .weather */
+    border-radius: 10px; /* Ajustez pour arrondir les coins */
 }
 
 .background-image {
