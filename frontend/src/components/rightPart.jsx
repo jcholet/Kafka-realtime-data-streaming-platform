@@ -45,18 +45,18 @@ function RightPart() {
                     <div className="weather-card-icon">
                         <FaWind></FaWind>
                     </div>
-                    <div className="weather-card-scale">
+                    <div className="weather-card-gauge">
                         <GaugeComponent
                             value={8}
                             maxValue={40}
-                            type="radial"
+                            type="semicircle"
                             labels={{
                                 valueLabel: {
                                     formatTextValue: value => value + ' km/h',
-                                    style: {fill: '#000000'}
+                                    style: {fill: '#000000', marginTop: '-100px'}
                                 },
                                 tickLabels: {
-                                    type: "inner",
+                                    type: "outer",
                                     ticks: [
                                         {value: 5},
                                         {value: 10},
@@ -67,7 +67,7 @@ function RightPart() {
                                 }
                             }}
                             arc={{
-                                colorArray: ['#5C9BE5', '#5C9BE5', '#5C9BE5', '#5C9BE5', '#5C9BE5'],
+                                colorArray: ['rgba(92,155,229,0.2)', 'rgba(92,155,229,0.4)', 'rgba(92,155,229,0.6)', 'rgba(92,155,229,0.8)', 'rgba(92,155,229,1)'],
                                 subArcs: [{limit: 5}, {limit: 10}, {limit: 20}, {limit: 30}, {limit: 40}],
                                 padding: 0.05,
                                 width: 0.2,
@@ -76,8 +76,8 @@ function RightPart() {
                             pointer={{
                                 elastic: true,
                                 animate: false,
-                                color: '#5C9BE5',
-                                width:15
+                                color: 'rgba(92,155,229,0.6)',
+                                width:15,
                             }}
                         />
                     </div>
