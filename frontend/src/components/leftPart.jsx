@@ -33,7 +33,7 @@ function LeftPart() {
         <div>25°</div>
       </div>
       <div className="weather">
-        <GoSun color="white" />
+        <GoSun color="white"/>
         <div>Ensoleillé</div>
       </div>
       <img src={BuildingNight} alt="Building and sun" className="background-image" /> 
