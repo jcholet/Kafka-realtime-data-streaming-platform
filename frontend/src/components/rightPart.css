@@ -1,0 +1,95 @@
+.right-part {
+    background-color: #E3F1FF;
+    border-radius: 2.5em 0 0 2.5em;
+    padding: 30px;
+}
+
+.welcome-title {
+    font-size: 1.2em;
+    font-weight: 500;
+    font-family: 'ClashDisplay', sans-serif;
+}
+
+.welcome-sub {
+    font-size: .9em;
+    font-weight: 100;
+}
+
+.graph-bg {
+    background-color: #fff;
+    border-radius: 1.5em;
+    padding: 30px;
+    margin-top: 20px;
+}
+
+.weather-details-title {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "ClashDisplay", sans-serif;
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.weather-details-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5%;
+}
+
+.weather-card {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 1.5em;
+    text-align: center;
+    position: relative;
+}
+
+.weather-card-title {
+    font-size: 16px;
+    font-weight: 500;
+    font-family: "ClashDisplay", sans-serif;
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    text-align: left;
+}
+
+.weather-card-value {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-family: "ClashDisplay", sans-serif;
+}
+
+.weather-card-scale {
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.status {
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.weather-card-icon {
+    background-color: #5C9BE5;
+    padding: 7px;
+    border-radius: 25%;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    width: 15px;
+    height: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ffffff;
+}
+
+.weather-card-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+
