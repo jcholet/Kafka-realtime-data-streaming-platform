@@ -20,6 +20,12 @@ const kafka = new Kafka({
   clientId: 'my-news-producer',
   brokers: ['kafka1:9092', 'kafka2:9093', 'kafka3:9094'],
   ssl,
+  retry: {
+    initialRetryTime: 1500,
+    retries: 5,
+    factor: 0.2,
+    multiplier: 2,
+  }
 });
 
 const producer = kafka.producer();
