@@ -38,5 +38,6 @@
 
 .temperature-label {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 500;
+    font-family: "ClashDisplay", sans-serif;
 }

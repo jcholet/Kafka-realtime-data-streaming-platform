@@ -27,7 +27,7 @@ function RightPart() {
                         <div>normal</div>
                         <div>bad</div>
                     </div>
-                    <ProgressBar value="82" max="100"></ProgressBar>
+                    <ProgressBar value="82" max="100" segmentNumber={3}></ProgressBar>
                 </div>
 
                 {/* Wind Card */}
@@ -36,7 +36,8 @@ function RightPart() {
                     <div className="weather-card-icon"></div>
                     <div className="weather-card-value">8 km/h</div>
                     <div className="weather-card-scale">
-                        <div className="wind-speed-gauge"></div>
+                        <div className="wind-speed-gauge">
+                        </div>
                     </div>
                 </div>
 
@@ -57,7 +58,7 @@ function RightPart() {
                         <div>80</div>
                         <div>90</div>
                     </div>
-                    <ProgressBar value="14" max="90"></ProgressBar>
+                    <ProgressBar value="14" max="100" segmentNumber={10}></ProgressBar>
                 </div>
 
                 {/* UV Index Card */}
@@ -72,7 +73,7 @@ function RightPart() {
                         <div>8-10</div>
                         <div>11+</div>
                     </div>
-                    <ProgressBar value="4" max="11"></ProgressBar>
+                    <ProgressBar value="4" max="11" segmentNumber={5}></ProgressBar>
                 </div>
 
                 {/* Feels Like Card */}
@@ -85,7 +86,7 @@ function RightPart() {
                         <div>25°</div>
                         <div>50°</div>
                     </div>
-                    <ProgressBar value="30" max="50"></ProgressBar>
+                    <ProgressBar value="30" max="50" segmentNumber={1}></ProgressBar>
                 </div>
 
                 {/* Chance of Rain Card */}
@@ -100,7 +101,7 @@ function RightPart() {
                         <div>75%</div>
                         <div>100%</div>
                     </div>
-                    <ProgressBar value="42" max="100"></ProgressBar>
+                    <ProgressBar value="42" max="100" segmentNumber={1}></ProgressBar>
                 </div>
             </div>
         </div>

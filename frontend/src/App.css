@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'Archivo';
+  src: url('./assets/fonts/Archivo-Variable.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ClashDisplay';
+  src: url('./assets/fonts/ClashDisplay-Variable.ttf') format('truetype');
+}
+
 html {
   background-color: #5C9BE5;
 }
@@ -5,6 +15,7 @@ html {
 .App {
   display: flex;
   min-height: 100vh;
+  font: 'Archivo', sans-serif;
 }
 
 .grid-container {

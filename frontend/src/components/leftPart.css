@@ -32,8 +32,9 @@
 }
 
 .temperature {
-    font-size: 5em; /* Taille de la police */
-    font-weight: 700; /* Épaisseur de la police */
+    font-size: 4.5em; /* Taille de la police */
+    font-weight: 500; /* Épaisseur de la police */
+    font-family: "ClashDisplay", sans-serif;
     display: flex;
     align-items: center; /* Centrer verticalement le contenu de .temperature */
     justify-content: center; /* Centrer horizontalement le contenu de .temperature */
