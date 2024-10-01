@@ -53,7 +53,7 @@ function RightPart() {
                             labels={{
                                 valueLabel: {
                                     formatTextValue: value => value + ' km/h',
-                                    style: {fill: '#000000', marginTop: '-100px'}
+                                    style: {fill: '#000000', fontFamily: 'ClashDisplay'}
                                 },
                                 tickLabels: {
                                     type: "outer",
