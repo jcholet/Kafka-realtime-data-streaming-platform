@@ -1,7 +1,7 @@
 # Kafka-realtime-data-streaming-platform
 
 ##
-pr lancer consumer et mon producer  connectés aux apis : 
+pr lancer consumer et mon producer connectés aux apis : 
 
 cd src
 
