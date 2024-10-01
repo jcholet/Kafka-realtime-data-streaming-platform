@@ -10,7 +10,7 @@ function LeftPart() {
   return (
     <div className="left-part">
       <div className="sun-grid">
-        {/* Première ligne */}
+        {/* First row */}
         <div className="location">
           <TiLocationArrowOutline color="white" />
           <div>Laval, 53000 France</div>
@@ -20,9 +20,9 @@ function LeftPart() {
           <div>07:00</div>
         </div>
 
-        {/* Deuxième ligne */}
+        {/* Second row */}
         <div className="date">
-          <div>Aujourd'hui 30 sept.</div>
+          <div>Today, Sept. 30</div>
         </div>
         <div className="sunset">
           <LuSunset color="white" />
@@ -33,8 +33,8 @@ function LeftPart() {
         <div>25°</div>
       </div>
       <div className="weather">
-        <GoSun color="white"/>
-        <div>Ensoleillé</div>
+        <GoSun color="white" />
+        <div>Sunny</div>
       </div>
       <img src={BuildingNight} alt="Building and sun" className="background-image" /> 
     </div>
