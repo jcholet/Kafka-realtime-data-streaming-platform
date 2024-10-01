@@ -42,6 +42,7 @@
     border-radius: 1.5em;
     text-align: center;
     position: relative;
+    overflow: hidden;
 }
 
 .weather-card-title {
