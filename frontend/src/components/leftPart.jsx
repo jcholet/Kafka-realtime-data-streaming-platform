@@ -33,8 +33,9 @@ function LeftPart() {
         <div>25°</div>
       </div>
       <div className="weather">
-        <GoSun color="white" />
-        <div>Sunny</div>
+          <div className="weather-blur"></div> {/* Nouvelle div pour le flou */}
+          <GoSun color="white" />
+          <div>Sunny</div>
       </div>
       <img src={BuildingNight} alt="Building and sun" className="background-image" /> 
     </div>

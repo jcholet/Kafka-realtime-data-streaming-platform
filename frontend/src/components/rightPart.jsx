@@ -8,14 +8,29 @@ import {FaSun} from "react-icons/fa";
 import {FaThermometerHalf} from "react-icons/fa";
 import {FaUmbrella} from "react-icons/fa";
 import {GaugeComponent} from 'react-gauge-component';
+import GridCarousel from './gridCarousel';
 
 function RightPart() {
+    const items = [
+        'Item 1',
+        'Item 2',
+        'Item 3',
+        'Item 4',
+        'Item 5',
+        'Item 6',
+        'Item 7',
+        'Item 8'
+      ];
+
     return (
         <div className="right-part">
             <div className="welcome-title"> Welcome back !</div>
             <div className='welcome-sub'>
                 Check out today's weather information
             </div>
+            
+            <GridCarousel items={items} />
+
             <div className="graph-bg">
                 <WeatherGraph/>
             </div>
