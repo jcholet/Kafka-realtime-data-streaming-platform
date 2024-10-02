@@ -5,6 +5,10 @@ const {runIpProducer} = require("./ip/ipProducer");
 const {runNewsConsumer} = require("./news/newsConsumer");
 const {runNewsProducer} = require("./news/newsProducer");
 
+runIpConsumer().catch(error => {
+  console.error('Erreur lors de l\'exécution du consommateur:', error);
+});
+
 runIpProducer().catch(error => {
   console.error('Erreur lors de l\'exécution du producteur:', error);
 });
