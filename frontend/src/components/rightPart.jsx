@@ -63,6 +63,7 @@ function RightPart() {
     return (
         <div className="right-part">
             <GridCarousel items={items}/>
+
             <div className="welcome-title"> Welcome back !</div>
             <div className='welcome-sub'>
                 Check out today's weather information

@@ -7,6 +7,11 @@
     max-width: 800px;
     margin: 0 auto; /* Centre le carousel */
     right: 0;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 1.5em;
+    padding-right: 0;
+    top: 10px;
 }
 
 .carousel-grid {
@@ -38,6 +43,10 @@
     width: 180px;
     height: 100px;
     padding: 10px;
+    border-radius: 1.5em;
+}
+.carousel-item:hover .blur-carousel {
+    opacity: 0;
 }
 
 .carousel-button {
