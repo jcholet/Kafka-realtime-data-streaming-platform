@@ -20,9 +20,7 @@ const kafka = new Kafka({
   ssl,
   retry: {
     initialRetryTime: 1500,
-    retries: 5,
-    factor: 0.2,
-    multiplier: 2,
+    retries: 10,
   }
 });
 
@@ -30,34 +28,79 @@ const producer = kafka.producer();
 
 // Fonction pour récupérer les données de trafic
 const fetchWeatherData = async () => {
+  // Connexion du producer
+  await producer.connect();
+  console.log('Producer connected');
   try {
-    const response = await axios.get(
-      `http://api.weatherapi.com/v1/current.json?key=27f33547d58d4d68995124844243009&q=laval, france&aqi=yes`); //TODO RMV API MAYBE LATER ZBI
+    // Appel de l'API pour obtenir la prévision météo pour Laval
+    const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=27f33547d58d4d68995124844243009&q=laval,france&days=1&aqi=no&alerts=no');
+    const data = response.data;
 
-    const trafficData = response.data;
-    console.log(trafficData)
-    // Envoyer les données au topic Kafka
-    const value = {
-      pays: trafficData.location.country,
-      ville: trafficData.location.name,
-      local_time: trafficData.location.localtime,
-      last_updated: trafficData.current.last_updated
-    }
+    const weather = {
+      location: data.location.name, // Nom de la ville
+      date: data.forecast.forecastday.date, // Date du jour
+    };
+    // Extraction des informations spécifiques pour chaque heure de chaque jour
+    const weatherInfo = {
+      forecast: data.forecast.forecastday.map((day) => ({
+        date: day.date, // Date du jour
+        hours: day.hour.map((hourData) => ({
+          time: hourData.time, // Heure spécifique
+          temperature: hourData.temp_c, // Température à cette heure en degrés Celsius
+          condition: hourData.condition.text, // Condition météorologique (ex : "Ensoleillé")
+          wind_speed: hourData.wind_kph, // Vitesse du vent en km/h
+          humidity: hourData.humidity, // Humidité
+        })),
+        sunrise: day.astro.sunrise, // Heure du lever du soleil
+        sunset: day.astro.sunset, // Heure du coucher du soleil
+      })),
+    };
+
     await producer.send({
       topic: 'traffic-meteo',
-      messages: [{ value: JSON.stringify(value) }],
+      messages: [
+        {
+          value: JSON.stringify(weather), // Convertir les données en chaîne JSON
+        },
+      ],
     });
+    console.log('weatherInfo: ', weather);
+    // Envoi des données récupérées pour chaque heure à Kafka
+    for (const day of weatherInfo.forecast) {
+      for (const hour of day.hours) {
+        const hourlyData = {
+          time: hour.time,
+          temperature: hour.temperature,
+          condition: hour.condition,
+          wind_speed: hour.wind_speed,
+          humidity: hour.humidity,
+          sunrise: day.sunrise,
+          sunset: day.sunset,
+        };
+        await producer.send({
+          topic: 'traffic-meteo',
+          messages: [
+            {
+              value: JSON.stringify(hourlyData), // Convertir les données en chaîne JSON
+            },
+          ],
+        });
 
-    console.log('Données de trafic envoyées avec succès à Kafka.');
+        console.log('Hourly data sent to Kafka:', hourlyData);
+      }
+    }
   } catch (error) {
-    console.error('Erreur lors de la récupération des données de trafic :', error);
+    console.error('Error fetching data from API:', error);
+    throw error; // Propager l'erreur pour l'utiliser plus tard
   }
+
+  // Déconnexion du producteur
+  await producer.disconnect();
+  console.log('Producer disconnected');
 };
 
 // Démarrer le producer
 const runWeatherProducer = async () => {
-  // Connexion du producer
-  await producer.connect();
   // Récupération initiale des données
   await fetchWeatherData();
   // Récupérer les données toutes les minutes

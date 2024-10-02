@@ -97,6 +97,7 @@ services:
       MONGO_INITDB_DATABASE: myDatabase
     volumes:
       - mongo-data:/data/db
+  
   mon-application:
     build:
       dockerfile: src/Dockerfile

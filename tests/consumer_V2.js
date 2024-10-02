@@ -27,7 +27,7 @@ const runConsumer = async () => {
   console.log("Connected to MongoDB");
 
   await consumer.connect();
-  await consumer.subscribe({ topic: 'my-topic', fromBeginning: true });
+  await consumer.subscribe({ topic: 'traffic-meteo', fromBeginning: true });
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {

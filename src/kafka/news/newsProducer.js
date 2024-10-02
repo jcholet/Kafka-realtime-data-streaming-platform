@@ -22,9 +22,7 @@ const kafka = new Kafka({
   ssl,
   retry: {
     initialRetryTime: 1500,
-    retries: 5,
-    factor: 0.2,
-    multiplier: 2,
+    retries: 10
   }
 });
 
