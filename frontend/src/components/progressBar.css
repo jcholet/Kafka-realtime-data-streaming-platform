@@ -4,13 +4,13 @@
     border-radius: 10px;
     overflow: hidden;
     margin-top: 5px;
+    gap: 5px;
 }
 
 .progress-bar-segment {
     flex: 1;
     background-color: #e0e0e0;
     height: 7px;
-    margin-right: 5px; /* Espace entre les segments */
     border-radius: 10px;
     position: relative;
     overflow: hidden;
