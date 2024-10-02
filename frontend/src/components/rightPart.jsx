@@ -12,24 +12,61 @@ import GridCarousel from './gridCarousel';
 
 function RightPart() {
     const items = [
-        'Item 1',
-        'Item 2',
-        'Item 3',
-        'Item 4',
-        'Item 5',
-        'Item 6',
-        'Item 7',
-        'Item 8'
-      ];
+        {
+            text: 'METEO. Jusqu\'à 300 mm de pluie, orages stationnaires : un nouvel épisode cévenol intense attendu ce week-end, l\'Hérault et le Gard en première ligne',
+            imageUrl: 'https://france3-regions.francetvinfo.fr/image/92uDlbXeZ4nHqRGq91Qk28sIHU0/930x620/regions/2024/07/12/080-hl-slapeyrere-1545463-66910dfaf07b2056925636.jpg',
+
+
+        },
+        {
+            text: 'METEO. Pluies et inondations : l’Allier, le Cantal, la Loire et le Puy-de-Dôme placés en vigilance orange',
+            imageUrl: 'https://france3-regions.francetvinfo.fr/image/MBVuVn7edsufRR2nmuTQjCwBrmw/930x620/regions/2024/09/04/080-hl-rcostaseca-2457828-66d871d914405199787993.jpg',
+
+
+        },
+        {
+            text: 'METEO. Une baisse des températures attendue cette semaine en Auvergne',
+            imageUrl: 'https://france3-regions.francetvinfo.fr/image/1_C-GURlJb4pWGPqLJhyFcf0rG4/930x620/regions/2024/09/09/maxnewsworldfour197343-66df1029c745f455850868.jpg',
+
+
+        },
+        {
+            text: 'jetblack-open-meteo added to PyPI',
+            imageUrl: 'https://pypi.org/static/images/twitter.abaf4b19.webp',
+
+
+        },
+        {
+            text: 'Des quartiers du centre de Marseille inondés après le plus gros orage depuis octobre 2021',
+            imageUrl: 'https://france3-regions.francetvinfo.fr/image/qfQ3PSxNZhnannfgvGBJ8upv25Q/930x620/regions/2024/09/04/orages2-66d86f7a562f2090845696.png',
+
+
+        },
+        {
+            text: 'Meteo France International décroche un gros contrat au Koweït',
+            imageUrl: 'https://static.latribune.fr/full_width/2445969/meteo-france-international.jpg',
+
+
+        },
+        {
+            text: 'Meteo. Pluies orageuses : le Gard et l`\'Hérault en vigilance orange',
+            imageUrl: 'https://cdn-s-www.ledauphine.com/images/4C819823-5905-4E37-819A-AA91F2E83CF9/FB1200/photo-1727015598.jpg',
+
+
+        },
+        {
+            text: 'Le département de Seine-et-Marne maintenu en vigilance orange crues ce samedi',
+            imageUrl: 'https://media.ouest-france.fr/v1/pictures/MjAyNDA5YmI0ZmMwYTlhOTNhYzg1MTc2OTM2OGJkNWNkZTlhMzM?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=dc14f755090352c11ee443211055e02a6225b6c04bdd2325e4911805c163c15f'
+        }
+    ];
 
     return (
         <div className="right-part">
+            <GridCarousel items={items}/>
             <div className="welcome-title"> Welcome back !</div>
             <div className='welcome-sub'>
                 Check out today's weather information
             </div>
-            
-            <GridCarousel items={items} />
 
             <div className="graph-bg">
                 <WeatherGraph/>
@@ -92,7 +129,7 @@ function RightPart() {
                                 elastic: true,
                                 animate: false,
                                 color: 'rgba(92,155,229,0.6)',
-                                width:15,
+                                width: 15,
                             }}
                         />
                     </div>

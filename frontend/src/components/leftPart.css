@@ -5,7 +5,7 @@
     color: white;
     position: relative;
 }
-  
+
 /* Configuration de la grille */
 .sun-grid {
     display: grid;
@@ -15,7 +15,7 @@
     align-items: center; /* Centre verticalement les éléments */
     color: white; /* Couleur du texte */
 }
-  
+
 /* Styles pour chaque élément de la grille */
 .location,
 .sunrise,

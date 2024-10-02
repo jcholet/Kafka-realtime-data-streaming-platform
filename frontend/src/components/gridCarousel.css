@@ -1,12 +1,12 @@
 .carousel-container {
     display: flex;
     align-items: center;
-    position: relative;
+    position: absolute;
     overflow: hidden;
-    width: 100%;
-    max-width: 800px; /* Ajustez la largeur selon vos besoins */
+    width: 40%;
+    max-width: 800px;
     margin: 0 auto; /* Centre le carousel */
-    height: 300px; /* Ajustez la hauteur pour votre carousel */
+    right: 0;
 }
 
 .carousel-grid {
@@ -14,31 +14,42 @@
     grid-auto-flow: column; /* Permettre à la grille de défiler horizontalement */
     grid-template-rows: repeat(auto-fill, minmax(100px, 1fr)); /* Ajustez la taille des items */
     gap: 20px; /* Espacement entre les items */
-    overflow-x: auto; /* Permet le défilement horizontal */
+    overflow-x: hidden; /* Permet le défilement horizontal */
     scroll-snap-type: x mandatory; /* Permet le snap scrolling */
-    padding: 20px;
     scroll-behavior: smooth; /* Smooth scrolling pour les flèches */
 }
 
 .carousel-item {
-    background-color: #eee; /* Fond de l'item */
-    padding: 20px;
-    border-radius: 10px; /* Coins arrondis */
+    background-color: #ffffff; /* Fond de l'item en blanc si aucune image n'est appliquée */
+    border-radius: 1.5em; /* Coins arrondis */
     text-align: center;
     scroll-snap-align: start; /* Alignement des items au défilement */
     min-width: 200px; /* Ajustez pour contrôler la largeur de chaque item */
+    font-size: 13px;
+    overflow: hidden;
+    background-size: cover; /* Ajuste l'image pour qu'elle couvre tout l'élément */
+    background-position: center;
+    color: white; /* Change la couleur du texte pour qu'il soit visible sur le fond sombre */
+}
+
+.blur-carousel {
+    background-color: rgba(0, 0, 0, 0.2); /* Fond semi-transparent */
+    backdrop-filter: blur(3px); /* Effet de flou */
+    width: 180px;
+    height: 100px;
+    padding: 10px;
 }
 
 .carousel-button {
-    background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
     border: none;
-    color: white;
-    padding: 10px;
+    background-color: transparent;
+    color: #5C9BE5;
     cursor: pointer;
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     z-index: 1;
+    font-size: 50px;
 }
 
 .carousel-button.prev {

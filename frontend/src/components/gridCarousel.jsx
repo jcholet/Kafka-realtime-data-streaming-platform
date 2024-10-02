@@ -24,11 +24,12 @@ const GridCarousel = ({ items }) => {
     <div className="carousel-container">
       <button className="carousel-button prev" onClick={scrollLeft}>‹</button>
       <div className="carousel-grid" ref={gridRef}>
-        {/* Rendu des éléments de la grille */}
         {items.map((item, index) => (
-          <div key={index} className="carousel-item">
-            {item}
-          </div>
+            <div key={index} className="carousel-item" style={{backgroundImage: `url(${item.imageUrl})`}}>
+              <div className="blur-carousel">
+                <div className="carousel-text">{item.text}</div>
+              </div>
+            </div>
         ))}
       </div>
       <button className="carousel-button next" onClick={scrollRight}>›</button>
