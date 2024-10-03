@@ -78,3 +78,19 @@
     max-height: 100%; /* Assurez-vous que l'image ne dépasse pas la hauteur du parent */
     z-index: -1; /* Placez l'image en arrière-plan */
 }
+
+.ip-dashboard-button {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background-color: #2a2a2a;
+    color: #fff;
+    font-size: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+}
+
+.ip-dashboard-button:hover {
+    background-color: #545454;
+}
