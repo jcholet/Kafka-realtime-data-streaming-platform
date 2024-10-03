@@ -27,6 +27,8 @@ services:
       KAFKA_SSL_TRUSTSTORE_LOCATION: '/etc/kafka/secrets/kafka1.truststore.jks'
       KAFKA_SSL_TRUSTSTORE_PASSWORD: 'password'
       KAFKA_SSL_CLIENT_AUTH: 'required'
+    networks:
+      - network
 
   kafka2:
     image: confluentinc/cp-kafka
@@ -56,6 +58,8 @@ services:
       KAFKA_SSL_TRUSTSTORE_LOCATION: '/etc/kafka/secrets/kafka2.truststore.jks'
       KAFKA_SSL_TRUSTSTORE_PASSWORD: 'password'
       KAFKA_SSL_CLIENT_AUTH: 'required'
+    networks:
+      - network
   
   kafka3:
     image: confluentinc/cp-kafka
@@ -85,35 +89,43 @@ services:
       KAFKA_SSL_TRUSTSTORE_LOCATION: '/etc/kafka/secrets/kafka3.truststore.jks'
       KAFKA_SSL_TRUSTSTORE_PASSWORD: 'password'
       KAFKA_SSL_CLIENT_AUTH: 'required'
-
-  mongodb:
-    image: mongo:latest
-    container_name: mongodb
-    ports:
-      - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
-      MONGO_INITDB_DATABASE: myDatabase
-    volumes:
-      - mongo-data:/data/db
+    networks:
+      - network
   
   kafka-scripts:
     build:
       dockerfile: kafka_scripts/Dockerfile
     volumes:
       - ./kafka_ssl_certs:/app/kafka_ssl_certs
-    ports: 
+    depends_on:
+      - kafka1
+      - kafka2
+      - kafka3
+    ports:
       - "8080:8080"
+    networks:
+      - network
+
+  frontend:
+    image: node:18
+    container_name: node_frontend
+    working_dir: /usr/src/app
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "3000:3000"
+    command: bash -c "npm install && npm start"
+    networks:
+      - network
     depends_on:
       - kafka1
       - kafka2
       - kafka3
 
 networks:
-  default:
-    name: my-network
-    external: true
+  network:
+    driver: bridge
 
 volumes:
   mongo-data:

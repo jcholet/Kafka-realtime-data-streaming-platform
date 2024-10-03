@@ -2,7 +2,7 @@ const { Kafka } = require('kafkajs');
 const axios = require('axios');
 const fs = require('fs');
 const NewsAPI = require('newsapi');
-const newsapi = new NewsAPI('f11c9b2ed94046bba2938ac3bc32e142'); // TODO RMV API KEY LATTER ZEBI
+const newsapi = new NewsAPI('f11c9b2ed94046bba2938ac3bc32e142');
 const path = require('path');
 
 const caPath = path.join(__dirname, '../../kafka_ssl_certs/ca-cert');
@@ -65,7 +65,7 @@ const runNewsProducer = async () => {
   await fetchNewsData();
 
   // Récupérer les données toutes les minutes
-  setInterval(fetchNewsData, 600000);
+  setInterval(fetchNewsData, 60000);
 };
 
 module.exports = { runNewsProducer };
