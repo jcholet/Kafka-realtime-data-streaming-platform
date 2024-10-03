@@ -30,16 +30,20 @@ const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifie
 
 const consumer = kafkaInstance.consumer({ groupId: 'weather' });
 
-const runWeatherConsumer = async () => {
+const runWeatherConsumer = async (sendWeatherUpdate) => {
   // Connexion à MongoDB
   await mongoClient.connect();
+  console.log("IN RUN WEATHER CONSUMER");
   console.log("Connected to MongoDB");
 
   await consumer.connect();
-  await consumer.subscribe({ topic: 'traffic-meteo', fromBeginning: true });
+  console.log("Connected to Kafka");
+  await consumer.subscribe({ topic: 'weather', fromBeginning: true });
+  console.log("Subscribed to Kafka");
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
+      console.log("IN EACH MESSAGE");
       const msgValue = message.value.toString(); // Conversion en chaîne de caractères
 
       try {
@@ -57,7 +61,8 @@ const runWeatherConsumer = async () => {
         const collection = db.collection('myCollection');
         await collection.insertOne({ ...parsedMessage, createdAt: new Date() });
 
-        console.log("Message inséré dans MongoDB");
+        console.log("BEFORE SENDING WEATHER UPDATE");
+        sendWeatherUpdate(parsedMessage); // Envoi des données au frontend
 
       } catch (error) {
         console.error('Failed to parse message as JSON:', error);

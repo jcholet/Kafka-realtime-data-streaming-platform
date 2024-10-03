@@ -28,7 +28,7 @@ const producer = kafka.producer();
 const fetchFakerIpDatas = async () => {
   try {
     await producer.send({
-      topic: 'traffic-ip',
+      topic: 'ip',
       messages: [{ value: JSON.stringify(faker.internet.ipv4())}]
     })
   } catch (error) {

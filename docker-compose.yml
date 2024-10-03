@@ -98,11 +98,13 @@ services:
     volumes:
       - mongo-data:/data/db
   
-  mon-application:
+  kafka-scripts:
     build:
-      dockerfile: src/Dockerfile
+      dockerfile: kafka_scripts/Dockerfile
     volumes:
       - ./kafka_ssl_certs:/app/kafka_ssl_certs
+    ports: 
+      - "8080:8080"
     depends_on:
       - kafka1
       - kafka2

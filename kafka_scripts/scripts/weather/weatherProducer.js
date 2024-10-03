@@ -26,7 +26,7 @@ const kafka = new Kafka({
 
 const producer = kafka.producer();
 
-// Fonction pour récupérer les données de trafic
+// Fonction pour récupérer les données météo
 const fetchWeatherData = async () => {
   // Connexion du producer
   await producer.connect();
@@ -36,59 +36,63 @@ const fetchWeatherData = async () => {
     const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=27f33547d58d4d68995124844243009&q=laval,france&days=1&aqi=no&alerts=no');
     const data = response.data;
 
+    const allHourlyData = [];
+
     const weather = {
       location: data.location.name, // Nom de la ville
       date: data.forecast.forecastday.date, // Date du jour
+      humidity: data.current.humidity, // Humidité actuelle
+      precipitation: data.current.precip_mm, // Précipitation actuelle en mm
+      wind_speed: data.current.wind_kph, // Vitesse du vent actuelle en km/h
+      uv: data.current.uv, // Indice UV actuel
+      rain: data.forecast.forecastday[0].day.daily_chance_of_rain, // Probabilité de pluie
+      temperature: data.current.temp_c, // Température actuelle en degrés Celsius
+      condition: data.current.condition.text, // Condition météorologique actuelle (ex : "Ensoleillé")
+      feels_like: data.current.feelslike_c, // Température ressentie en degrés Celsius
+      sunrise: data.forecast.forecastday[0].astro.sunrise, // Heure du lever du soleil
+      sunset: data.forecast.forecastday[0].astro.sunset, // Heure du coucher du soleil
     };
     // Extraction des informations spécifiques pour chaque heure de chaque jour
     const weatherInfo = {
       forecast: data.forecast.forecastday.map((day) => ({
-        date: day.date, // Date du jour
         hours: day.hour.map((hourData) => ({
           time: hourData.time, // Heure spécifique
           temperature: hourData.temp_c, // Température à cette heure en degrés Celsius
           condition: hourData.condition.text, // Condition météorologique (ex : "Ensoleillé")
-          wind_speed: hourData.wind_kph, // Vitesse du vent en km/h
-          humidity: hourData.humidity, // Humidité
+          rain: hourData.chance_of_rain, // Probabilité de pluie
         })),
-        sunrise: day.astro.sunrise, // Heure du lever du soleil
-        sunset: day.astro.sunset, // Heure du coucher du soleil
       })),
     };
 
-    await producer.send({
-      topic: 'traffic-meteo',
-      messages: [
-        {
-          value: JSON.stringify(weather), // Convertir les données en chaîne JSON
-        },
-      ],
-    });
     console.log('weatherInfo: ', weather);
     // Envoi des données récupérées pour chaque heure à Kafka
     for (const day of weatherInfo.forecast) {
       for (const hour of day.hours) {
         const hourlyData = {
-          time: hour.time,
-          temperature: hour.temperature,
-          condition: hour.condition,
-          wind_speed: hour.wind_speed,
-          humidity: hour.humidity,
-          sunrise: day.sunrise,
-          sunset: day.sunset,
+          time: hour.time, // Heure spécifique
+          temperature: hour.temperature, // Température à cette heure en degrés Celsius
+          condition: hour.condition, // Condition météorologique (ex : "Ensoleillé")
+          rain: hour.rain, // Probabilité de pluie
         };
-        await producer.send({
-          topic: 'traffic-meteo',
-          messages: [
-            {
-              value: JSON.stringify(hourlyData), // Convertir les données en chaîne JSON
-            },
-          ],
-        });
-
-        console.log('Hourly data sent to Kafka:', hourlyData);
+        allHourlyData.push(hourlyData);
       }
     }
+    // Préparer un objet global qui inclut toutes les données météo
+    const weatherDataToSend = {
+      weather: weather, // Inclure les données météo générales
+      hours: allHourlyData, // Inclure toutes les données horaires regroupées
+    };
+
+    await producer.send({
+      topic: 'weather',
+      messages: [
+        {
+          value: JSON.stringify(weatherDataToSend), // Convertir les données en chaîne JSON
+        },
+      ],
+    });
+
+    console.log('Hourly data sent to Kafka:', weatherDataToSend);
   } catch (error) {
     console.error('Error fetching data from API:', error);
     throw error; // Propager l'erreur pour l'utiliser plus tard

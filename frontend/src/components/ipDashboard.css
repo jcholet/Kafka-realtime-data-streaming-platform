@@ -1,0 +1,94 @@
+.ip-dashboard {
+    padding: 20px;
+    background-color: #282c34;
+    font-family: 'Courier New', Courier, monospace;
+    width: 100%;
+    height: 100vh; /* La hauteur totale de la fenêtre */
+    box-sizing: border-box; /* Inclut le padding dans la hauteur */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Flex container for header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dashboard-h1 {
+    color: #00ff00;
+    margin: 0;
+    font-size: 2em;
+}
+
+/* Style for the back button */
+.back-button {
+    padding: 8px 16px;
+    font-size: 1em;
+    background-color: #00ff00;
+    color: #282c34;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.back-button:hover {
+    background-color: #00cc00;
+}
+
+/* Console container */
+.console {
+    background-color: #1e1e1e;
+    padding: 10px;
+    border-radius: 5px;
+    flex-grow: 1;
+    overflow-y: hidden;
+    pointer-events: none;
+}
+
+/* Style for the IP entries */
+.console span {
+    margin: 0;
+    padding: 5px 0;
+    color: #00ff00;
+}
+
+.console p {
+    margin: 0;
+    padding: 5px 0;
+    color: #ffffff;
+}
+
+/* Media queries for responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-h1 {
+        font-size: 1.5em;
+    }
+
+    .back-button {
+        font-size: 0.9em;
+        padding: 6px 12px;
+    }
+
+    .console {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .back-button {
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+
+    .dashboard-h1 {
+        font-size: 1.2em;
+    }
+}

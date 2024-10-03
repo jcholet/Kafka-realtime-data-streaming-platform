@@ -26,13 +26,14 @@ const kafkaInstance = new Kafka({
 
 const consumer = kafkaInstance.consumer({ groupId: 'ip' });
 
-const runIpConsumer = async () => {
+const runIpConsumer = async (sendIpUpdate) => {
   await consumer.connect();
-  await consumer.subscribe({ topic: 'traffic-ip', fromBeginning: false });
+  await consumer.subscribe({ topic: 'ip', fromBeginning: false });
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      console.log(message.value.toString());
+      console.log("Sending IP update");
+      sendIpUpdate(message.value.toString().replaceAll('"', ''));
     },
   });
 };

@@ -25,13 +25,27 @@ const kafkaInstance = new Kafka({
 
 const consumer = kafkaInstance.consumer({ groupId: 'news' });
 
-const runNewsConsumer = async () => {
+const runNewsConsumer = async (sendNewsUpdate) => {
   await consumer.connect();
-  await consumer.subscribe({ topic: 'traffic-news', fromBeginning: false });
+  await consumer.subscribe({ topic: 'news', fromBeginning: false });
 
   await consumer.run({
     eachMessage: async ({ topic, partition, message }) => {
-      console.log('c le news');
+      const msgValue = message.value.toString();
+
+      try {
+        const parsedMessage = JSON.parse(msgValue);
+
+        console.log({
+          partition,
+          offset: message.offset,
+          value: parsedMessage,
+        });
+
+        sendNewsUpdate(parsedMessage);
+      } catch (error) {
+        console.error(`Error parsing message value: ${error.message}`);
+      }
     },
   });
 };

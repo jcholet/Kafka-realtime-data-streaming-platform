@@ -25,9 +25,14 @@ const GridCarousel = ({ items }) => {
       <button className="carousel-button prev" onClick={scrollLeft}>‹</button>
       <div className="carousel-grid" ref={gridRef}>
         {items.map((item, index) => (
-            <div key={index} className="carousel-item" style={{backgroundImage: `url(${item.imageUrl})`}}>
+            <div 
+              key={index} 
+              className="carousel-item" 
+              style={{backgroundImage: `url(${item.urlToImage})`}}
+              onClick={() => window.open(item.url, '_blank')}
+            >
               <div className="blur-carousel">
-                <div className="carousel-text">{item.text}</div>
+                <div className="carousel-text">{item.title}</div>
               </div>
             </div>
         ))}

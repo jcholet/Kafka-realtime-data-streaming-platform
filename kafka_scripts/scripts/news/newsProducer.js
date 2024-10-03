@@ -34,10 +34,22 @@ const fetchNewsData = async () => {
       q: 'meteo',
       language: 'fr'
     });
+
+    // Extraire uniquement les informations nécessaires
+    const newsData = response.articles.map(article => ({
+      title: article.title,
+      url: article.url,
+      urlToImage: article.urlToImage,
+      publishedAt: article.publishedAt
+    }));
+
+    console.log('newsData:', newsData);
+
     await producer.send({
-      topic: 'traffic-news',
-      messages: [{ value: JSON.stringify(response)}]
+      topic: 'news',
+      messages: [{ value: JSON.stringify(newsData)}]
     })
+
     console.log('Données de news envoyées avec succès à Kafka');
   } catch (error) {
     console.error('Erreur lors de la récupération des données de trafic :', error);

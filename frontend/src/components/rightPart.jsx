@@ -9,60 +9,82 @@ import {FaThermometerHalf} from "react-icons/fa";
 import {FaUmbrella} from "react-icons/fa";
 import {GaugeComponent} from 'react-gauge-component';
 import GridCarousel from './gridCarousel';
+import { useEffect, useState } from 'react';
 
-function RightPart() {
-    const items = [
-        {
-            text: 'METEO. Jusqu\'à 300 mm de pluie, orages stationnaires : un nouvel épisode cévenol intense attendu ce week-end, l\'Hérault et le Gard en première ligne',
-            imageUrl: 'https://france3-regions.francetvinfo.fr/image/92uDlbXeZ4nHqRGq91Qk28sIHU0/930x620/regions/2024/07/12/080-hl-slapeyrere-1545463-66910dfaf07b2056925636.jpg',
+function RightPart({ socket }) {
+    const [weatherData, setWeatherData] = useState({
+        humidity: 0,
+        windSpeed: 0,
+        precipitation: 0,
+        uvIndex: 0,
+        feelsLike: 0,
+        chanceOfRain: 0,
+        hourlyData: []
+    });
 
+    const [newsData, setNewsData] = useState([]);
+    
+    useEffect(() => {
+        if (!socket) return;
 
-        },
-        {
-            text: 'METEO. Pluies et inondations : l’Allier, le Cantal, la Loire et le Puy-de-Dôme placés en vigilance orange',
-            imageUrl: 'https://france3-regions.francetvinfo.fr/image/MBVuVn7edsufRR2nmuTQjCwBrmw/930x620/regions/2024/09/04/080-hl-rcostaseca-2457828-66d871d914405199787993.jpg',
+        // Écoute de l'événement `weather-update` pour recevoir les données du serveur
+        socket.on('weather-update', (data) => {
+            console.log('Received weather data in right part:', data);
+            // Met à jour l'état avec les données reçues
+            setWeatherData((prevData) => ({
+            humidity: data.weather.humidity || prevData.humidity,
+            windSpeed: data.weather.wind_speed || prevData.windSpeed,
+            precipitation: data.weather.precipitation || prevData.precipitation,
+            uvIndex: data.weather.uv || prevData.uvIndex,
+            feelsLike: data.weather.feels_like || prevData.feelsLike,
+            chanceOfRain: data.weather.rain || prevData.chanceOfRain,
+            hourlyData: data.hours || prevData.hourlyData
+            }));
+        });
 
+        // Nettoyage à la déconnexion
+        return () => {
+            socket.off('weather-update');
+        };
+    }, [socket]);
 
-        },
-        {
-            text: 'METEO. Une baisse des températures attendue cette semaine en Auvergne',
-            imageUrl: 'https://france3-regions.francetvinfo.fr/image/1_C-GURlJb4pWGPqLJhyFcf0rG4/930x620/regions/2024/09/09/maxnewsworldfour197343-66df1029c745f455850868.jpg',
+    useEffect(() => {
+        if (!socket) return;
+        
+        socket.on('news-update', (data) => {
+            console.log('Received news data in right part:', data);
+            setNewsData(data);
+        });
 
+    }, [socket]);
 
-        },
-        {
-            text: 'jetblack-open-meteo added to PyPI',
-            imageUrl: 'https://pypi.org/static/images/twitter.abaf4b19.webp',
+    const getHumidityStatus = (value) => {
+        if(value < 33.33) {
+            return 'good';
+        } else if (value < 66.66) {
+            return 'normal';
+        } 
 
+        return 'bad';
+    }
 
-        },
-        {
-            text: 'Des quartiers du centre de Marseille inondés après le plus gros orage depuis octobre 2021',
-            imageUrl: 'https://france3-regions.francetvinfo.fr/image/qfQ3PSxNZhnannfgvGBJ8upv25Q/930x620/regions/2024/09/04/orages2-66d86f7a562f2090845696.png',
+    const getUvIndexStatus = (value) => {
+        if(value < 3) {
+            return 'low';
+        } else if (value < 6) {
+            return 'medium';
+        } else if (value < 8) {
+            return 'high';
+        } else if (value < 11) {
+            return 'very high';
+        } 
 
-
-        },
-        {
-            text: 'Meteo France International décroche un gros contrat au Koweït',
-            imageUrl: 'https://static.latribune.fr/full_width/2445969/meteo-france-international.jpg',
-
-
-        },
-        {
-            text: 'Meteo. Pluies orageuses : le Gard et l`\'Hérault en vigilance orange',
-            imageUrl: 'https://cdn-s-www.ledauphine.com/images/4C819823-5905-4E37-819A-AA91F2E83CF9/FB1200/photo-1727015598.jpg',
-
-
-        },
-        {
-            text: 'Le département de Seine-et-Marne maintenu en vigilance orange crues ce samedi',
-            imageUrl: 'https://media.ouest-france.fr/v1/pictures/MjAyNDA5YmI0ZmMwYTlhOTNhYzg1MTc2OTM2OGJkNWNkZTlhMzM?width=1260&height=708&focuspoint=50%2C25&cropresize=1&client_id=bpeditorial&sign=dc14f755090352c11ee443211055e02a6225b6c04bdd2325e4911805c163c15f'
-        }
-    ];
+        return 'extreme';
+    }
 
     return (
         <div className="right-part">
-            <GridCarousel items={items}/>
+            <GridCarousel items={newsData}/>
 
             <div className="welcome-title"> Welcome back !</div>
             <div className='welcome-sub'>
@@ -83,13 +105,13 @@ function RightPart() {
                     <div className="weather-card-icon">
                         <FaDroplet></FaDroplet>
                     </div>
-                    <div className="weather-card-value">82% <span className="status bad">bad</span></div>
+                    <div className="weather-card-value">{weatherData.humidity}% <span className="status bad">{getHumidityStatus(weatherData.humidity)}</span></div>
                     <div className="weather-card-scale">
                         <div>good</div>
                         <div>normal</div>
                         <div>bad</div>
                     </div>
-                    <ProgressBar value="82" max="100" segmentNumber={3}></ProgressBar>
+                    <ProgressBar value={weatherData.humidity} max="100" segmentNumber={3}></ProgressBar>
                 </div>
 
                 {/* Wind Card */}
@@ -100,7 +122,7 @@ function RightPart() {
                     </div>
                     <div className="weather-card-gauge">
                         <GaugeComponent
-                            value={8}
+                            value={weatherData.windSpeed}
                             maxValue={40}
                             type="semicircle"
                             labels={{
@@ -142,7 +164,7 @@ function RightPart() {
                     <div className="weather-card-icon">
                         <FaCloudRain></FaCloudRain>
                     </div>
-                    <div className="weather-card-value">1.4 cm</div>
+                    <div className="weather-card-value">{weatherData.precipitation}mm</div>
                     <div className="weather-card-scale">
                         <div>0</div>
                         <div>10</div>
@@ -155,7 +177,7 @@ function RightPart() {
                         <div>80</div>
                         <div>90</div>
                     </div>
-                    <ProgressBar value="14" max="100" segmentNumber={10}></ProgressBar>
+                    <ProgressBar value={weatherData.precipitation} max="100" segmentNumber={10}></ProgressBar>
                 </div>
 
                 {/* UV Index Card */}
@@ -164,7 +186,7 @@ function RightPart() {
                     <div className="weather-card-icon">
                         <FaSun></FaSun>
                     </div>
-                    <div className="weather-card-value">4 <span className="status medium">medium</span></div>
+                    <div className="weather-card-value">{weatherData.uvIndex} <span className="status medium">{getUvIndexStatus(weatherData.uvIndex)}</span></div>
                     <div className="weather-card-scale">
                         <div>0-2</div>
                         <div>3-5</div>
@@ -172,7 +194,7 @@ function RightPart() {
                         <div>8-10</div>
                         <div>11+</div>
                     </div>
-                    <ProgressBar value="4" max="11" segmentNumber={5}></ProgressBar>
+                    <ProgressBar value={weatherData.uvIndex} max="11" segmentNumber={5}></ProgressBar>
                 </div>
 
                 {/* Feels Like Card */}
@@ -181,13 +203,13 @@ function RightPart() {
                     <div className="weather-card-icon">
                         <FaThermometerHalf></FaThermometerHalf>
                     </div>
-                    <div className="weather-card-value">30°</div>
+                    <div className="weather-card-value">{weatherData.feelsLike}°</div>
                     <div className="weather-card-scale">
                         <div>0°</div>
                         <div>25°</div>
                         <div>50°</div>
                     </div>
-                    <ProgressBar value="30" max="50" segmentNumber={1}></ProgressBar>
+                    <ProgressBar value={weatherData.feelsLike} max="50" segmentNumber={1}></ProgressBar>
                 </div>
 
                 {/* Chance of Rain Card */}
@@ -196,7 +218,7 @@ function RightPart() {
                     <div className="weather-card-icon">
                         <FaUmbrella></FaUmbrella>
                     </div>
-                    <div className="weather-card-value">42%</div>
+                    <div className="weather-card-value">{weatherData.chanceOfRain}%</div>
                     <div className="weather-card-scale chance-of-rain">
                         <div>0%</div>
                         <div>25%</div>
@@ -204,7 +226,7 @@ function RightPart() {
                         <div>75%</div>
                         <div>100%</div>
                     </div>
-                    <ProgressBar value="42" max="100" segmentNumber={1}></ProgressBar>
+                    <ProgressBar value={weatherData.chanceOfRain} max="100" segmentNumber={1}></ProgressBar>
                 </div>
             </div>
         </div>
