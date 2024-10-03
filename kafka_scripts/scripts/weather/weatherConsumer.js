@@ -25,8 +25,8 @@ const kafkaInstance = new Kafka({
 });
 
 // MongoDB connection setup
-const mongoUri = 'mongodb://root:example@mongodb:27017/myDatabase?authSource=admin'; // Connection URI
-const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
+// const mongoUri = 'mongodb://root:example@mongodb:27017/myDatabase?authSource=admin'; // Connection URI
+// const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const consumer = kafkaInstance.consumer({ groupId: 'weather' });
 
@@ -57,9 +57,9 @@ const runWeatherConsumer = async (sendWeatherUpdate) => {
         });
 
         // Insertion des données JSON parsées dans MongoDB
-        const db = mongoClient.db('myDatabase');
-        const collection = db.collection('myCollection');
-        await collection.insertOne({ ...parsedMessage, createdAt: new Date() });
+        // const db = mongoClient.db('myDatabase');
+        // const collection = db.collection('myCollection');
+        // await collection.insertOne({ ...parsedMessage, createdAt: new Date() });
 
         console.log("BEFORE SENDING WEATHER UPDATE");
         sendWeatherUpdate(parsedMessage); // Envoi des données au frontend
@@ -69,9 +69,9 @@ const runWeatherConsumer = async (sendWeatherUpdate) => {
         console.log('Storing raw message as string');
         
         // Si le parsing échoue, stocker le message brut sous forme de texte
-        const db = mongoClient.db('myDatabase');
-        const collection = db.collection('myCollection');
-        await collection.insertOne({ message: msgValue, createdAt: new Date() });
+        // const db = mongoClient.db('myDatabase');
+        // const collection = db.collection('myCollection');
+        // await collection.insertOne({ message: msgValue, createdAt: new Date() });
       }
     },
   });
