@@ -92,6 +92,20 @@ services:
     networks:
       - network
   
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: myDatabase
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - network2
+
   kafka-scripts:
     build:
       dockerfile: kafka_scripts/Dockerfile
@@ -101,10 +115,12 @@ services:
       - kafka1
       - kafka2
       - kafka3
+      - mongodb
     ports:
       - "8080:8080"
     networks:
       - network
+      - network2
 
   frontend:
     image: node:18
@@ -122,9 +138,12 @@ services:
       - kafka1
       - kafka2
       - kafka3
+      - mongodb
 
 networks:
   network:
+    driver: bridge
+  network2:
     driver: bridge
 
 volumes:
