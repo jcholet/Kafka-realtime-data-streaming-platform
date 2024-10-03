@@ -1,5 +1,5 @@
 const { Kafka } = require('kafkajs');
-const { MongoClient } = require('mongodb');
+// const { MongoClient } = require('mongodb');
 const fs = require('fs');
 const path = require('path');
 
@@ -32,7 +32,7 @@ const consumer = kafkaInstance.consumer({ groupId: 'weather' });
 
 const runWeatherConsumer = async (sendWeatherUpdate) => {
   // Connexion à MongoDB
-  await mongoClient.connect();
+  // await mongoClient.connect();
   console.log("IN RUN WEATHER CONSUMER");
   console.log("Connected to MongoDB");
 
