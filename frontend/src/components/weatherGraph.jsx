@@ -6,16 +6,18 @@ import './weatherGraph.css';
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const WeatherGraph = () => {
+const WeatherGraph = ({hourlyData}) => {
     const [currentDayIndex, setCurrentDayIndex] = useState(0);
+
+    console.log(hourlyData);
 
     const daysData = [
         {
-            day: 'Upcoming hours',
+            day: 'Today',
             precipitation: [23, 29, 58, 75, 33, 20, 73, 49],
             temperatures: [27, 28, 28, 29, 30, 29, 29, 28],
             weatherIcons: ['☀️', '☀️', '🌥️', '🌥️', '☀️', '🌥️', '🌥️', '☀️'],
-            times: ['Now', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00']
+            times: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00', '00:00']
         },
         {
             day: 'Thursday 18',
