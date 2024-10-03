@@ -23,7 +23,7 @@ function RightPart({ socket }) {
     });
 
     const [newsData, setNewsData] = useState([]);
-
+    
     useEffect(() => {
         if (!socket) return;
 
@@ -50,7 +50,7 @@ function RightPart({ socket }) {
 
     useEffect(() => {
         if (!socket) return;
-
+        
         socket.on('news-update', (data) => {
             console.log('Received news data in right part:', data);
             setNewsData(data);
@@ -63,7 +63,7 @@ function RightPart({ socket }) {
             return 'good';
         } else if (value < 66.66) {
             return 'normal';
-        }
+        } 
 
         return 'bad';
     }
@@ -77,7 +77,7 @@ function RightPart({ socket }) {
             return 'high';
         } else if (value < 11) {
             return 'very high';
-        }
+        } 
 
         return 'extreme';
     }
@@ -92,7 +92,7 @@ function RightPart({ socket }) {
             </div>
 
             <div className="graph-bg">
-                <WeatherGraph hourlyData={weatherData.hourlyData}/>
+                <WeatherGraph/>
             </div>
 
             {/* More details of today's weather */}
