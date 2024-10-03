@@ -33,7 +33,7 @@ const fetchWeatherData = async () => {
   console.log('Producer connected');
   try {
     // Appel de l'API pour obtenir la prévision météo pour Laval
-    const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=27f33547d58d4d68995124844243009&q=laval,france&days=1&aqi=no&alerts=no');
+    const response = await axios.get('https://api.weatherapi.com/v1/forecast.json?key=27f33547d58d4d68995124844243009&q=laval,france&days=3&aqi=no&alerts=no');
     const data = response.data;
 
     const allHourlyData = [];
