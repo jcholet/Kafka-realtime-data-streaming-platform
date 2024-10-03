@@ -8,10 +8,6 @@
   src: url('./assets/fonts/ClashDisplay-Variable.ttf') format('truetype');
 }
 
-html {
-  background-color: #5C9BE5;
-}
-
 .App {
   display: flex;
   min-height: 100vh;

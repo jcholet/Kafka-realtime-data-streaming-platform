@@ -92,7 +92,7 @@ function RightPart({ socket }) {
             </div>
 
             <div className="graph-bg">
-                <WeatherGraph/>
+                <WeatherGraph hourlyData={weatherData.hourlyData}/>
             </div>
 
             {/* More details of today's weather */}
