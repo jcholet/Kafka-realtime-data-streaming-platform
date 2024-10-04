@@ -46,6 +46,9 @@ const runWeatherConsumer = async (sendWeatherUpdate) => {
       console.log("IN EACH MESSAGE");
       const msgValue = message.value.toString(); // Conversion en chaîne de caractères
 
+      const db = mongoClient.db('infoapi');
+      const collection = db.collection('weather');
+
       try {
         // Supposons que msgValue est un JSON. On essaie de le parser.
         const parsedMessage = JSON.parse(msgValue);
@@ -57,8 +60,6 @@ const runWeatherConsumer = async (sendWeatherUpdate) => {
         });
 
         // Insertion des données JSON parsées dans MongoDB
-        const db = mongoClient.db('myDatabase');
-        const collection = db.collection('myCollection');
         await collection.insertOne({ ...parsedMessage, createdAt: new Date() });
 
         console.log("BEFORE SENDING WEATHER UPDATE");
@@ -67,10 +68,8 @@ const runWeatherConsumer = async (sendWeatherUpdate) => {
       } catch (error) {
         console.error('Failed to parse message as JSON:', error);
         console.log('Storing raw message as string');
-        
+
         // Si le parsing échoue, stocker le message brut sous forme de texte
-        const db = mongoClient.db('myDatabase');
-        const collection = db.collection('myCollection');
         await collection.insertOne({ message: msgValue, createdAt: new Date() });
       }
     },
