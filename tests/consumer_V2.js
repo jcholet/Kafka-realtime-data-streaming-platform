@@ -16,7 +16,7 @@ const kafkaInstance = new Kafka({
 });
 
 // MongoDB connection setup
-const mongoUri = 'mongodb://root:example@localhost:27017/myDatabase?authSource=admin'; // Connection URI
+const mongoUri = 'mongodb://root:rootpassword@localhost:27017/infoapi?authSource=admin'; // Connection URI
 const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const consumer = kafkaInstance.consumer({ groupId: 'my-group' });
@@ -33,6 +33,9 @@ const runConsumer = async () => {
     eachMessage: async ({ topic, partition, message }) => {
       const msgValue = message.value.toString(); // Conversion en chaîne de caractères
 
+      const db = mongoClient.db('infopai');
+      const collection = db.collection('weather');
+
       try {
         // Supposons que msgValue est un JSON. On essaie de le parser.
         const parsedMessage = JSON.parse(msgValue);
@@ -44,8 +47,6 @@ const runConsumer = async () => {
         });
 
         // Insertion des données JSON parsées dans MongoDB
-        const db = mongoClient.db('myDatabase');
-        const collection = db.collection('myCollection');
         await collection.insertOne({ ...parsedMessage, createdAt: new Date() });
 
         console.log("Message inséré dans MongoDB");
@@ -53,10 +54,8 @@ const runConsumer = async () => {
       } catch (error) {
         console.error('Failed to parse message as JSON:', error);
         console.log('Storing raw message as string');
-        
+
         // Si le parsing échoue, stocker le message brut sous forme de texte
-        const db = mongoClient.db('myDatabase');
-        const collection = db.collection('myCollection');
         await collection.insertOne({ message: msgValue, createdAt: new Date() });
       }
     },
