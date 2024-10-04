@@ -109,6 +109,7 @@ services:
   kafka-scripts:
     build:
       dockerfile: kafka_scripts/Dockerfile
+    container_name: kafka_scripts
     volumes:
       - ./kafka_ssl_certs:/app/kafka_ssl_certs
     depends_on:
@@ -134,6 +135,7 @@ services:
     command: bash -c "npm install && npm start"
     networks:
       - network
+      - network2
     depends_on:
       - kafka1
       - kafka2

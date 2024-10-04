@@ -82,6 +82,7 @@ createTopics().then(() => {
   }
 
   function sendNewsUpdate(data) {
+    console.log('Sending news update:', data);
     io.emit('news-update', data);
   }
 
