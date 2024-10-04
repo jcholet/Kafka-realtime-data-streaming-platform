@@ -25,7 +25,7 @@ const kafkaInstance = new Kafka({
 });
 
 // MongoDB connection setup
-const mongoUri = 'mongodb://root:rootpassword@mongodb:27017/infoapi?authSource=admin'; // Connection URI
+const mongoUri = 'mongodb://root:example@mongodb:27017/infoapi?authSource=admin'; // Connection URI
 const mongoClient = new MongoClient(mongoUri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 const consumer = kafkaInstance.consumer({ groupId: 'weather' });
