@@ -1,5 +1,14 @@
 # Site de données en temps réel Kafka
 
+## GROUPE
+
+Produit par :
+Jonas Cholet
+Martin Ledroit
+Alexis Avenel 
+Nicolas Nadé 
+Alexandre Bonadé
+
 ## SOMMAIRE
 
 1. [Introduction](#introduction)
