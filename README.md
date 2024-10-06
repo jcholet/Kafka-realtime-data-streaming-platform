@@ -113,6 +113,18 @@ Cette section vous donne une vue claire et concise des étapes d’installation 
 
 Allez sur http://localhost:3000.
 
-Voici à quoi devrait ressembler le site : 
-# TODO METTRE PHOTO DU SITE
 Le site contient une page d'informations sur la météo à Laval et quelques articles sur la météo en France. Il y a aussi une page qui permet de voir les (fausses) adresses IP qui se connectent et se déconnectent du site.
+Voici à quoi devrait ressembler le site :
+
+Quand il fait jour : 
+
+![Mode jour](doc-img/dayMode.png)
+
+Quand il fait nuit : 
+
+![Mode nuit](doc-img/nightMode.png)
+
+La console des IPs
+
+![Architecture du projet](doc-img/ipLogs.png)
+
