@@ -3,11 +3,11 @@
 ## GROUPE
 
 Produit par :
-Jonas Cholet
-Martin Ledroit
-Alexis Avenel 
-Nicolas Nadé 
-Alexandre Bonadé
+- Jonas Cholet
+- Martin Ledroit
+- Alexis Avenel 
+- Nicolas Nadé 
+- Alexandre Bonadé
 
 ## SOMMAIRE
 
