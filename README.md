@@ -9,6 +9,8 @@ Produit par :
 - Nicolas Nadé 
 - Alexandre Bonadé
 
+Lien du projet : https://github.com/jcholet/Kafka-realtime-data-streaming-platform
+
 ## SOMMAIRE
 
 1. [Introduction](#introduction)
